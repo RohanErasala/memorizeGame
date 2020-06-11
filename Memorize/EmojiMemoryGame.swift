@@ -12,7 +12,7 @@ class EmojiMemoryGame: ObservableObject {
     //private(set) makes it so that only this class can modify it, but all the other ones can see it
     @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
     
-    static func createMemoryGame() -> MemoryGame<String> {
+    private static func createMemoryGame() -> MemoryGame<String> {
         
         let gameTheme = getRandomTheme()
         

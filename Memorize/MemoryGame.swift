@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 
 struct MemoryGame<CardContent> where CardContent: Equatable {
-    var cards: Array<Card>
+    private(set) var cards: Array<Card>
     var gameTheme: theme
     var score: Int = 0
     var unshuffledCards: Array<Card>
@@ -49,7 +49,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         }
     }*/
     
-    var round = Array<Card>()
+    private var round = Array<Card>()
     
     mutating func choose(card: Card) {
         print("card chosen: \(card)")
