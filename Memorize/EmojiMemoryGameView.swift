@@ -31,16 +31,20 @@ struct EmojiMemoryGameView: View {
         Grid(items: viewModel.cards) { card in
             
                 CardView(card: card).onTapGesture {
+                    withAnimation(.linear) {
                     self.viewModel.choose(card: card)
+                    }
                 }
-                    
+            
         .padding(5)
             
             
         }.foregroundColor(viewModel.color)
             
         Button(action: {
+            withAnimation(.easeInOut(duration: 2)){
             self.viewModel.newGame()
+            }
         }) {
             HStack {
                 Text("New Game")
@@ -74,9 +78,11 @@ struct CardView: View {
         
         if card.isFaceUp || !card.isMatched {
             ZStack {
-                Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(20), clockwise: true)
+                Pie(startAngle: Angle.degrees(0-90), endAngle: Angle.degrees(-card.bonusRemaining * 360 - 90), clockwise: true)
                 Text(card.content)
                 .font(Font.system(size: fontSize(for: size)))
+                    .rotationEffect(Angle.degrees(card.isMatched ? 180: 0))
+                    .animation(card.isMatched ? Animation.linear(duration:1).repeatForever(autoreverses: false) : .default)
             }
         
             .cardify(isFaceUp: card.isFaceUp)
